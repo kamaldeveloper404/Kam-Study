@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate App Icons</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .info {
+            color: #666;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Study Flow Icons Generator</h1>
+        <p>اضغط على الأزرار لتحميل الأيقونات</p>
+        
+        <canvas id="canvas192" width="192" height="192"></canvas>
+        <br>
+        <button onclick="downloadIcon(192)">تحميل أيقونة 192x192</button>
+        
+        <canvas id="canvas512" width="512" height="512"></canvas>
+        <br>
+        <button onclick="downloadIcon(512)">تحميل أيقونة 512x512</button>
+        
+        <div class="info">
+            بعد التحميل، احفظ الملفات في مجلد public باسم:<br>
+            icon-192.png و icon-512.png
+        </div>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#3b82f6');
+            gradient.addColorStop(1, '#f59e0b');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Book icon
+            ctx.fillStyle = 'white';
+            const bookWidth = size * 0.5;
+            const bookHeight = size * 0.6;
+            const bookX = (size - bookWidth) / 2;
+            const bookY = (size - bookHeight) / 2;
+            
+            // Book pages
+            ctx.fillRect(bookX, bookY, bookWidth, bookHeight);
+            
+            // Book spine
+            ctx.fillStyle = '#1e40af';
+            ctx.fillRect(bookX, bookY, bookWidth * 0.15, bookHeight);
+            
+            // Book lines
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = size * 0.01;
+            for (let i = 1; i <= 4; i++) {
+                const y = bookY + (bookHeight / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(bookX + bookWidth * 0.25, y);
+                ctx.lineTo(bookX + bookWidth * 0.85, y);
+                ctx.stroke();
+            }
+            
+            // Checkmark
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = size * 0.04;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            const checkSize = size * 0.15;
+            const checkX = bookX + bookWidth * 0.7;
+            const checkY = bookY + bookHeight * 0.3;
+            
+            ctx.beginPath();
+            ctx.moveTo(checkX, checkY);
+            ctx.lineTo(checkX + checkSize * 0.3, checkY + checkSize * 0.3);
+            ctx.lineTo(checkX + checkSize, checkY - checkSize * 0.3);
+            ctx.stroke();
+        }
+
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Draw icons on load
+        window.onload = function() {
+            drawIcon(document.getElementById('canvas192'), 192);
+            drawIcon(document.getElementById('canvas512'), 512);
+        };
+    </script>
+</body>
+</html>
