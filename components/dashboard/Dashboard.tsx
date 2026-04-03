@@ -99,26 +99,23 @@ export default function Dashboard({ userData }: { userData: any }) {
   }
 
   const rebuildSchedule = (subjects: any[], planType: 'term' | 'revision') => {
-    // Find the earliest exam date and longest revision period
+    // Find the earliest exam date
     let minExamDate = new Date(subjects[0].examDate)
-    let maxRevisionDays = subjects[0].revisionDays
     
     subjects.forEach((subject: any) => {
       const examDate = new Date(subject.examDate)
       if (examDate < minExamDate) minExamDate = examDate
-      if (subject.revisionDays > maxRevisionDays) maxRevisionDays = subject.revisionDays
     })
     
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     minExamDate.setHours(0, 0, 0, 0)
-    const totalDays = Math.floor((minExamDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-    const availableDays = Math.max(1, totalDays - maxRevisionDays)
+    const totalDays = Math.max(1, Math.floor((minExamDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)))
     
     if (planType === 'revision') {
-      return createRevisionSchedule(subjects, availableDays)
+      return createRevisionSchedule(subjects, totalDays)
     } else {
-      return createTermSchedule(subjects, availableDays)
+      return createTermSchedule(subjects, totalDays)
     }
   }
 
