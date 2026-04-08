@@ -126,21 +126,24 @@ export default function SettingsTab() {
         </p>
       </div>
 
-      <div className="bg-red-50 dark:bg-red-900 border-2 border-red-200 dark:border-red-700 rounded-xl shadow-md p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border-2 border-red-200 dark:border-red-800">
         <div className="flex items-center gap-3 mb-3">
-          <LogOut size={24} className="text-red-600 dark:text-red-400" />
-          <span className="font-bold text-red-800 dark:text-red-200">{t.logout}</span>
+          <div className="bg-red-100 dark:bg-red-900 p-3 rounded-full">
+            <LogOut size={24} className="text-red-600 dark:text-red-400" />
+          </div>
+          <div className="flex-1">
+            <h3 className="font-bold text-gray-800 dark:text-white text-lg">{t.logout}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{t.logoutDesc}</p>
+          </div>
         </div>
-        <p className="text-sm text-red-700 dark:text-red-300 mb-4">
-          {t.logoutDesc}
-        </p>
         <button
           onClick={() => {
             setShowLogoutConfirm(true)
             playSound('click')
           }}
-          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all"
+          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
         >
+          <LogOut size={20} />
           {t.logoutButton}
         </button>
       </div>
