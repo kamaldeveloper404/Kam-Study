@@ -72,7 +72,10 @@ export const translations = {
       dark: 'داكن',
       sounds: 'الأصوات',
       enabled: 'مفعّل',
-      disabled: 'معطّل'
+      disabled: 'معطّل',
+      logout: 'تسجيل الخروج',
+      logoutDesc: 'حذف كل البيانات والبدء من جديد',
+      logoutButton: 'تسجيل الخروج 🚪'
     },
     nav: {
       home: 'الرئيسية',
@@ -153,7 +156,10 @@ export const translations = {
       dark: 'Dark',
       sounds: 'Sounds',
       enabled: 'Enabled',
-      disabled: 'Disabled'
+      disabled: 'Disabled',
+      logout: 'Logout',
+      logoutDesc: 'Delete all data and start over',
+      logoutButton: 'Logout 🚪'
     },
     nav: {
       home: 'Home',
